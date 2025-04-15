@@ -1,6 +1,6 @@
 import "@/app/globals.css"
-import { Navbar } from "../../components/navbar/navbar"
-import { ThemeProvider } from "../../components/theme-provider"
+import { Navbar } from "../components/navbar/navbar"
+import { ThemeProvider } from "../components/theme-provider"
 import type React from "react" // Added import for React
 
 export default function RootLayout({

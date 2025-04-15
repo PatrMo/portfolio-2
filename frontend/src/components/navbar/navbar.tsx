@@ -31,19 +31,19 @@ export function Navbar() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem className="hidden md:flex">
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  <Code className="mr-2 h-4 w-4" />
-                  <span className="font-bold">BackendDev</span>
-                </NavigationMenuLink>
+              <Link href="/" className={navigationMenuTriggerStyle()}>
+                <Code className="mr-2 h-4 w-4" />
+                <span className="font-bold">BackendDev</span>
               </Link>
             </NavigationMenuItem>
             {navItems.map((item) => (
               <NavigationMenuItem key={item.name}>
-                <Link href={item.href} legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()} active={pathname === item.href}>
-                    {item.name}
-                  </NavigationMenuLink>
+                <Link 
+                  href={item.href}
+                  className={navigationMenuTriggerStyle()}
+                  aria-current={pathname === item.href ? "page" : undefined}
+                >
+                  {item.name}
                 </Link>
               </NavigationMenuItem>
             ))}
