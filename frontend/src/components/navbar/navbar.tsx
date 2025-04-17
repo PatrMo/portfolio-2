@@ -15,12 +15,12 @@ import {
 } from "../ui/navigation-menu"
 
 const navItems = [
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Resume", href: "#resume" },
-  { name: "Contact", href: "#contact" },
+  { name: "About", href: "About" },
+  { name: "Projects", href: "Projects" },
+  { name: "Skills", href: "Skills" },
+  { name: "Experience", href: "Experience" },
+  { name: "Resume", href: "Resume" },
+  { name: "Contact", href: "Contact" },
 ]
 
 export function Navbar() {
