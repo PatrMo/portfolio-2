@@ -9,16 +9,15 @@ import { Button } from "../ui/button"
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "../ui/navigation-menu"
 
 const navItems = [
   { name: "About", href: "/" },
-  { name: "Projects", href: "Projects" },
-  { name: "Skills", href: "Skills" },
-  { name: "Experience", href: "Experience" },
+  { name: "Projects", href: "WorkInProgress" },
+  { name: "Skills", href: "WorkInProgress" },
+  { name: "Experience", href: "WorkInProgress" },
   { name: "Resume", href: "Resume" },
   { name: "Contact", href: "Contact" },
 ]

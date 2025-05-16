@@ -62,8 +62,6 @@ const GridDistortion: React.FC<GridDistortionProps> = ({
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
-
-    // Keep canvas from swallowing any pointer events
     renderer.domElement.style.pointerEvents = 'none';
 
     const camera = new THREE.OrthographicCamera(0, 0, 0, 0, -1000, 1000);
@@ -145,7 +143,6 @@ const GridDistortion: React.FC<GridDistortionProps> = ({
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      // normalize within the container
       const rect = container.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width;
       const y = 1 - (e.clientY - rect.top) / rect.height;
@@ -155,11 +152,9 @@ const GridDistortion: React.FC<GridDistortionProps> = ({
     };
 
     const handleMouseLeave = () => {
-      // zero out velocities so things relax smoothly
       mouseState.x = mouseState.y = mouseState.prevX = mouseState.prevY = mouseState.vX = mouseState.vY = 0;
     };
 
-    // **key change**: listen on window so it picks up moves *throughout* the page
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('resize', handleResize);
@@ -169,7 +164,7 @@ const GridDistortion: React.FC<GridDistortionProps> = ({
       requestAnimationFrame(animate);
       uniforms.time.value += 0.05;
 
-      const dataArr = (dataTexture.image as any).data as Float32Array;
+      const dataArr = (dataTexture.image as { data: Float32Array }).data;
       for (let i = 0; i < size * size; i++) {
         dataArr[i * 4] *= relaxation;
         dataArr[i * 4 + 1] *= relaxation;
