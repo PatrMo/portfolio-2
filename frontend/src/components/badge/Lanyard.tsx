@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Canvas, extend, useFrame } from "@react-three/fiber";
@@ -19,7 +18,6 @@ import {
 } from "@react-three/rapier";
 import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
-
 import lanyard from "../../assets/lanyard.png";
 
 useGLTF.preload('/card.glb');
@@ -32,6 +30,7 @@ interface LanyardProps {
   transparent?: boolean;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RapierRigidBody = any;
 
 export default function Lanyard({
@@ -90,7 +89,11 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
     linearDamping: 4,
   };
 
-  const { nodes, materials } = useGLTF('/card.glb') as any;
+  const gltf = useGLTF('/card.glb') as unknown as {
+    nodes: Record<string, THREE.Mesh>;
+    materials: Record<string, THREE.Material>;
+  };
+  const { nodes, materials } = gltf;
   const texture = useTexture(lanyard.src);
   const [curve] = useState(() => new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()]));
   const [dragged, drag] = useState<false | THREE.Vector3>(false);
@@ -136,7 +139,7 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
       curve.points[1].copy(j2.current!.lerped!);
       curve.points[2].copy(j1.current!.lerped!);
       curve.points[3].copy(fixed.current!.translation());
-      band.current!.geometry.setPoints(curve.getPoints(32));
+      (band.current!.geometry as MeshLineGeometry).setPoints(curve.getPoints(32));
       ang.copy(card.current!.angvel());
       rot.copy(card.current!.rotation());
       card.current!.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
@@ -177,12 +180,13 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
             }}
             onPointerDown={(e: React.PointerEvent) => {
               e.currentTarget.setPointerCapture(e.pointerId);
+              // @ts-expect-error: Property 'point' does not exist on type 'PointerEvent<Element>'.
               drag(new THREE.Vector3().copy(e.point).sub(vec.copy(card.current!.translation())));
             }}
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
-                map={materials.base.map}
+                map={(materials.base as THREE.MeshPhysicalMaterial).map}
                 map-anisotropy={16}
                 clearcoat={1}
                 clearcoatRoughness={0.15}
@@ -196,7 +200,9 @@ function Band({ maxSpeed = 50, minSpeed = 0 }: BandProps) {
         </RigidBody>
       </group>
       <mesh ref={band} position={[0, 0.08, 0]}>
+        {/* @ts-expect-error: meshLineGeometry isn’t in JSX.IntrinsicElements */}
         <meshLineGeometry />
+        {/* @ts-expect-error: meshLineMaterial isn’t in JSX.IntrinsicElements */}
         <meshLineMaterial
           color="white"
           resolution={isSmall ? [1000, 2000] : [1000, 1000]}

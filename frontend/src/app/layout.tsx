@@ -3,6 +3,7 @@ import { Navbar } from "../components/navbar/navbar"
 import { ThemeProvider } from "../components/theme-provider"
 import type React from "react" // Added import for React
 
+
 export default function RootLayout({
   children,
 }: {
