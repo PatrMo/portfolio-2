@@ -14,7 +14,6 @@ import {
   Transition,
   type VariantLabels,
   type Target,
-  type AnimationControls,
   type TargetAndTransition,
 } from "framer-motion";
 
@@ -37,7 +36,7 @@ export interface RotatingTextProps
   texts: string[];
   transition?: Transition;
   initial?: boolean | Target | VariantLabels;
-  animate?: boolean | VariantLabels | AnimationControls | TargetAndTransition;
+  animate?: boolean | VariantLabels | TargetAndTransition;
   exit?: Target | VariantLabels;
   animatePresenceMode?: "sync" | "wait";
   animatePresenceInitial?: boolean;
@@ -237,10 +236,13 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
                   className={cn("inline-flex", splitLevelClassName)}
                 >
                   {wordObj.characters.map((char, charIndex) => (
+                    // @ts-ignore
                     <motion.span
                       key={charIndex}
+                      // @ts-ignore
                       initial={initial}
                       animate={animate}
+                      // @ts-ignore
                       exit={exit}
                       transition={{
                         ...transition,

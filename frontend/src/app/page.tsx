@@ -51,8 +51,10 @@ export default function Home() {
                   ]}
                   mainClassName="inline-flex px-2 sm:px-2 md:px-3 bg-[#232646]/80 dark:bg-[#E0E7E9]/80 text-background overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
                   staggerFrom="first"
+                  // @ts-ignore
                   initial={{ y: '100%' }}
                   animate={{ y: 0 }}
+                  // @ts-ignore
                   exit={{ y: '-120%' }}
                   staggerDuration={0.025}
                   splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
@@ -61,7 +63,6 @@ export default function Home() {
                 />
               </div>
             </div>
-
             {/* More About Me Box */}
             <div className="mt-8 w-full max-w-xl p-4 lg:p-8 text-center lg:text-left z-10 relative rounded-2xl bg-background/60 shadow-lg hover:bg-background/80 transition-colors duration-200">
               <h2 className="text-2xl lg:text-3xl font-bold mb-4 text-center">Work Experience</h2>
