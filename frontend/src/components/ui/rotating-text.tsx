@@ -14,7 +14,6 @@ import {
   Transition,
   type VariantLabels,
   type Target,
-  type AnimationControls,
   type TargetAndTransition,
 } from "framer-motion";
 
@@ -37,7 +36,7 @@ export interface RotatingTextProps
   texts: string[];
   transition?: Transition;
   initial?: boolean | Target | VariantLabels;
-  animate?: boolean | VariantLabels | AnimationControls | TargetAndTransition;
+  animate?: boolean | VariantLabels | TargetAndTransition;
   exit?: Target | VariantLabels;
   animatePresenceMode?: "sync" | "wait";
   animatePresenceInitial?: boolean;
@@ -48,6 +47,7 @@ export interface RotatingTextProps
   auto?: boolean;
   splitBy?: string;
   onNext?: (index: number) => void;
+  containerClassName?: string;
   mainClassName?: string;
   splitLevelClassName?: string;
   elementLevelClassName?: string;
@@ -70,14 +70,20 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
       auto = true,
       splitBy = "characters",
       onNext,
+      containerClassName,
       mainClassName,
       splitLevelClassName,
       elementLevelClassName,
+      className,
       ...rest
     },
     ref
   ) => {
     const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
+    const contentClassName =
+      splitBy === "lines"
+        ? "flex flex-col w-full items-center"
+        : "flex flex-wrap whitespace-pre-wrap items-center justify-center";
 
     const splitIntoCharacters = (text: string): string[] => {
       if (typeof Intl !== "undefined" && Intl.Segmenter) {
@@ -205,66 +211,99 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
     return (
       <motion.span
         className={cn(
-          "flex flex-wrap whitespace-pre-wrap relative",
-          mainClassName
+          "inline-flex relative align-baseline",
+          containerClassName,
+          className
         )}
         {...rest}
-        layout
-        transition={transition}
       >
-        <span className="sr-only">{texts[currentTextIndex]}</span>
-        <AnimatePresence
-          mode={animatePresenceMode}
-          initial={animatePresenceInitial}
+        <motion.span
+          className={cn(
+            "relative inline-flex overflow-hidden whitespace-pre-wrap",
+            mainClassName
+          )}
+          layout="size"
+          transition={{ layout: transition }}
         >
-          <motion.div
-            key={currentTextIndex}
-            className={cn(
-              splitBy === "lines"
-                ? "flex flex-col w-full"
-                : "flex flex-wrap whitespace-pre-wrap relative"
-            )}
-            layout
+          <span className="sr-only">{texts[currentTextIndex]}</span>
+
+          {/* Hidden layout sizer so the pill/background can animate width + height changes smoothly */}
+          <span
             aria-hidden="true"
+            className={cn(
+              "opacity-0",
+              contentClassName
+            )}
           >
-            {elements.map((wordObj, wordIndex, array) => {
-              const previousCharsCount = array
-                .slice(0, wordIndex)
-                .reduce((sum, word) => sum + word.characters.length, 0);
-              return (
-                <span
-                  key={wordIndex}
-                  className={cn("inline-flex", splitLevelClassName)}
-                >
-                  {wordObj.characters.map((char, charIndex) => (
-                    <motion.span
-                      key={charIndex}
-                      initial={initial}
-                      animate={animate}
-                      exit={exit}
-                      transition={{
-                        ...transition,
-                        delay: getStaggerDelay(
-                          previousCharsCount + charIndex,
-                          array.reduce(
-                            (sum, word) => sum + word.characters.length,
-                            0
-                          )
-                        ),
-                      }}
-                      className={cn("inline-block", elementLevelClassName)}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                  {wordObj.needsSpace && (
-                    <span className="whitespace-pre"> </span>
-                  )}
-                </span>
-              );
-            })}
-          </motion.div>
-        </AnimatePresence>
+            {elements.map((wordObj, wordIndex) => (
+              <span
+                key={wordIndex}
+                className={cn("inline-flex", splitLevelClassName)}
+              >
+                {wordObj.characters.map((char, charIndex) => (
+                  <span
+                    key={charIndex}
+                    className={cn("inline-block", elementLevelClassName)}
+                  >
+                    {char}
+                  </span>
+                ))}
+                {wordObj.needsSpace && <span className="whitespace-pre"> </span>}
+              </span>
+            ))}
+          </span>
+
+          <AnimatePresence
+            mode={animatePresenceMode}
+            initial={animatePresenceInitial}
+          >
+            <motion.div
+              key={currentTextIndex}
+              className={cn(
+                "absolute inset-0",
+                contentClassName
+              )}
+              aria-hidden="true"
+            >
+              {elements.map((wordObj, wordIndex, array) => {
+                const previousCharsCount = array
+                  .slice(0, wordIndex)
+                  .reduce((sum, word) => sum + word.characters.length, 0);
+                return (
+                  <span
+                    key={wordIndex}
+                    className={cn("inline-flex", splitLevelClassName)}
+                  >
+                    {wordObj.characters.map((char, charIndex) => (
+                      <motion.span
+                        key={charIndex}
+                        initial={initial}
+                        animate={animate}
+                        exit={exit}
+                        transition={{
+                          ...transition,
+                          delay: getStaggerDelay(
+                            previousCharsCount + charIndex,
+                            array.reduce(
+                              (sum, word) => sum + word.characters.length,
+                              0
+                            )
+                          ),
+                        }}
+                        className={cn("inline-block", elementLevelClassName)}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                    {wordObj.needsSpace && (
+                      <span className="whitespace-pre"> </span>
+                    )}
+                  </span>
+                );
+              })}
+            </motion.div>
+          </AnimatePresence>
+        </motion.span>
       </motion.span>
     );
   }
