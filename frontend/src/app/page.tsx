@@ -54,10 +54,8 @@ export default function Home() {
                   ]}
                   mainClassName="inline-flex px-3 sm:px-3 md:px-4 bg-[#232646]/80 dark:bg-[#E0E7E9]/80 text-background overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
                   staggerFrom="first"
-                  // @ts-expect-error framer-motion typing with string percentages
                   initial={{ y: '100%' }}
                   animate={{ y: 0 }}
-                  // @ts-expect-error framer-motion typing with string percentages
                   exit={{ y: '-120%' }}
                   staggerDuration={0.025}
                   splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"

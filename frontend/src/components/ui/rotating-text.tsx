@@ -275,13 +275,10 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
                     className={cn("inline-flex", splitLevelClassName)}
                   >
                     {wordObj.characters.map((char, charIndex) => (
-                      // @ts-expect-error variant type compatibility with dynamic props
                       <motion.span
                         key={charIndex}
-                        // @ts-expect-error variant type compatibility with dynamic props
                         initial={initial}
                         animate={animate}
-                        // @ts-expect-error variant type compatibility with dynamic props
                         exit={exit}
                         transition={{
                           ...transition,
