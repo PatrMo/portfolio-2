@@ -1,9 +1,16 @@
+export type ProjectExternalLinks = {
+  github?: string;
+  devpost?: string;
+  website?: string;
+};
+
 export type Project = {
   id: number;
   title: string;
   image: string;
   description: string;
   link: string;
+  externalLinks?: ProjectExternalLinks;
   status: "In Progress" | "Completed";
   year: string;
   stack: string[];
