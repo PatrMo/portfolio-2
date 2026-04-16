@@ -70,24 +70,48 @@ export default function Home() {
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-emerald-500/10 via-transparent to-blue-500/10" />
               <div className="relative flex items-center justify-between gap-3 border-b border-border/60 pb-4">
                 <h2 className="text-2xl font-bold tracking-tight lg:text-3xl">Work Experience</h2>
-                <span className="rounded-full border border-border/70 bg-background/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-foreground/70">
-                  Current
-                </span>
               </div>
 
-              <article className="relative mt-5 rounded-xl border border-border/60 bg-background/70 p-4 lg:p-5">
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <h3 className="text-lg font-semibold leading-snug lg:text-xl">
-                    Software Developer Intern
-                  </h3>
-                  <span className="rounded-md bg-foreground/10 px-2.5 py-1 text-xs font-medium text-foreground/80">
-                    Playbook Media Inc
-                  </span>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/80 lg:text-base">
-                  Building and refining product features with a focus on performance, usability, and maintainable code.
-                </p>
-              </article>
+              <div className="relative mt-5 flex flex-col gap-4">
+                <article className="rounded-xl border border-border/60 bg-background/70 p-4 lg:p-5">
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <h3 className="text-lg font-semibold leading-snug lg:text-xl">
+                      Software Developer Intern
+                    </h3>
+                    <span className="rounded-full border border-emerald-500/50 bg-emerald-500/10 px-2.5 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                      Current
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs font-medium text-foreground/60">Noble Solutions Enterprises Inc. &mdash; Mar 2026 &ndash; Present</p>
+                  <p className="mt-3 text-sm leading-relaxed text-foreground/80 lg:text-base">
+                    Building a full-stack CRM from scratch using Vite and Supabase, with Google Cloud Platform handling OAuth and role-based access control. Designed an automated email system using Brevo&apos;s transactional API with custom subdomain logic.
+                  </p>
+                </article>
+
+                <article className="rounded-xl border border-border/60 bg-background/70 p-4 lg:p-5">
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <h3 className="text-lg font-semibold leading-snug lg:text-xl">
+                      Software Developer Intern
+                    </h3>
+                  </div>
+                  <p className="mt-1 text-xs font-medium text-foreground/60">Playbook International Media Corp. &mdash; Mar 2025 &ndash; May 2025</p>
+                  <p className="mt-3 text-sm leading-relaxed text-foreground/80 lg:text-base">
+                    Built an ETL pipeline using Python (Pandas, NumPy) to automate data entry across 200+ spreadsheets, reducing operational overhead by 25%. Engineered an NLP-based header-mapping framework achieving 95%+ accuracy across 30+ inconsistent column names.
+                  </p>
+                </article>
+
+                <article className="rounded-xl border border-border/60 bg-background/70 p-4 lg:p-5">
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <h3 className="text-lg font-semibold leading-snug lg:text-xl">
+                      Backend Developer
+                    </h3>
+                  </div>
+                  <p className="mt-1 text-xs font-medium text-foreground/60">Google Developer Group McMaster &mdash; Sep 2024 &ndash; Apr 2025</p>
+                  <p className="mt-3 text-sm leading-relaxed text-foreground/80 lg:text-base">
+                    Collaborated in an 8-person SCRUM team building a React Native app supporting 10,000+ users. Developed REST API endpoints, Dockerized and deployed to Google Kubernetes Engine, and architected a real-time friend list system in Firestore.
+                  </p>
+                </article>
+              </div>
             </section>
           </div>
           {/*<img src="/jiggle.png" alt="Jiggle" className="hidden lg:block absolute bottom-[5rem] right-[35rem] w-50 h-50 lg:w-75 lg:h-75 z-10 rotate-45" /> */}
