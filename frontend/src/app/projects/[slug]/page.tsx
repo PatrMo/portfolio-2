@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Github, Globe, Trophy, type LucideIcon } from "lucide-react";
 
 import {
   getProjectBySlug,
@@ -24,6 +25,32 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
+  const externalLinks = [
+    {
+      url: project.externalLinks?.github,
+      label: "GitHub",
+      Icon: Github,
+    },
+    {
+      url: project.externalLinks?.devpost,
+      label: "Devpost",
+      Icon: Trophy,
+    },
+    {
+      url: project.externalLinks?.website,
+      label: "Project Website",
+      Icon: Globe,
+    },
+  ].filter(
+    (
+      link
+    ): link is {
+      url: string;
+      label: string;
+      Icon: LucideIcon;
+    } => Boolean(link.url)
+  );
+
   return (
     <main className="min-h-screen px-4 py-12 lg:px-8 lg:py-16">
       <div className="mx-auto max-w-4xl">
@@ -46,6 +73,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <p className="mt-3 max-w-2xl text-base text-foreground/85 lg:text-lg">
               {project.description}
             </p>
+            {externalLinks.length > 0 && (
+              <div className="mt-5 flex flex-wrap items-center gap-2">
+                {externalLinks.map(({ url, label, Icon }) => (
+                  <a
+                    key={label}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open ${label}`}
+                    title={label}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border/70 bg-background/75 text-foreground/85 transition-colors hover:bg-background"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="grid gap-8 px-6 py-6 lg:grid-cols-3 lg:px-8">

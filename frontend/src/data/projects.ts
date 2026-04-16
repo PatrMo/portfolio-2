@@ -1,9 +1,16 @@
+export type ProjectExternalLinks = {
+  github?: string;
+  devpost?: string;
+  website?: string;
+};
+
 export type Project = {
   id: number;
   title: string;
   image: string;
   description: string;
   link: string;
+  externalLinks?: ProjectExternalLinks;
   status: "In Progress" | "Completed";
   year: string;
   stack: string[];
@@ -75,15 +82,19 @@ export const projects: Project[] = [
     id: 5,
     title: "TrueDermis",
     image: "/project_images/placeholder.png",
-    description: "Product exploration for dermatology-focused user workflows.",
+    description: "Full-stack healthcare web app that classifies skin conditions from images using a trained machine learning model.",
     link: "/projects/true-dermis",
+    externalLinks: {
+      github: "https://github.com/PatrMo/truedermis",
+      website: "https://truedermis-patrmos-projects.vercel.app",
+    },
     status: "Completed",
     year: "2025",
-    stack: ["React", "API Integration", "UI Design"],
+    stack: ["React", "Flask", "TensorFlow", "AWS S3", "AWS EC2", "Python", "Boto3"],
     highlights: [
-      "Mapped core user flow for condition tracking and information lookup.",
-      "Designed interface patterns for trust and clarity.",
-      "Integrated supporting data endpoints for faster feedback.",
+      "Led a team of six to build a full-stack healthcare web app with a React frontend calling Flask REST APIs.",
+      "Architected the backend to securely fetch a classification model from AWS S3 using Boto3, ensuring versioned model management and reducing local storage dependencies.",
+      "Trained a skin-disease classification model using TensorFlow, handling data preparation and augmentation.",
     ],
   },
   {
@@ -120,15 +131,19 @@ export const projects: Project[] = [
     id: 2,
     title: "GateKeeper",
     image: "/project_images/placeholder.png",
-    description: "Access-control and management interface for secure workflows.",
+    description: "Local encrypted password manager with a CI/CD pipeline for automated testing and secure credential storage.",
     link: "/projects/gatekeeper",
+    externalLinks: {
+      github: "https://github.com/PatrMo/GateKeeper-public",
+    },
     status: "Completed",
-    year: "2025",
-    stack: ["Next.js", "TypeScript", "Authorization"],
+    year: "2024",
+    stack: ["C", "OpenSSL", "SQL", "Bash", "YAML", "GitHub Actions"],
     highlights: [
-      "Implemented role-aware user pathways.",
-      "Added clear status surfaces for access and permission states.",
-      "Optimized the admin flow for operational speed.",
+      "Collaborated in a 4-person team to develop a local encrypted password manager with a CI/CD pipeline.",
+      "Wrote a Bash testing script and YAML workflow using GitHub Actions to automate unit testing and upload results, ensuring defect-free releases.",
+      "Designed SQL database tables and optimized queries to securely store and manage encrypted user credentials.",
+      "Integrated OpenSSL to generate salts, AES-256 keys, and initialization vectors for secure encryption workflows.",
     ],
   },
   {
