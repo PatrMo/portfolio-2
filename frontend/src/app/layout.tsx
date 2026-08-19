@@ -1,6 +1,7 @@
 import "@/app/globals.css"
 import { Navbar } from "../components/navbar/navbar"
 import { ThemeProvider } from "../components/theme-provider"
+import LoadingScreen from "../components/loading-screen"
 import type React from "react" // Added import for React
 
 
@@ -14,6 +15,7 @@ export default function RootLayout({
       <head />
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <LoadingScreen />
           <Navbar />
           <main>{children}</main>
         </ThemeProvider>
