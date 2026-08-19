@@ -38,7 +38,7 @@ export default function LoadingScreen() {
 
   // Safety net: never trap the user behind the overlay if a loader stalls.
   useEffect(() => {
-    const t = setTimeout(() => setTimedOut(true), 8000);
+    const t = setTimeout(() => setTimedOut(true), 5000);
     return () => clearTimeout(t);
   }, []);
 
@@ -52,16 +52,6 @@ export default function LoadingScreen() {
     return () => clearTimeout(t);
   }, [ready, fadingOut]);
 
-  // Lock scrolling while the overlay covers the page.
-  useEffect(() => {
-    if (hidden) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = previous;
-    };
-  }, [hidden]);
-
   if (hidden) return null;
 
   const shown = Math.min(100, Math.round(progress));
@@ -71,7 +61,7 @@ export default function LoadingScreen() {
       role="status"
       aria-live="polite"
       aria-label="Loading portfolio"
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background transition-opacity duration-[600ms] ease-out ${
+      className={`fixed inset-0 z-[100] flex touch-none flex-col items-center justify-center overscroll-contain bg-background transition-opacity duration-[600ms] ease-out ${
         fadingOut ? 'pointer-events-none opacity-0' : 'opacity-100'
       }`}
     >
