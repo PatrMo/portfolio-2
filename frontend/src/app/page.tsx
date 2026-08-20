@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           
           {/* Right: Info Boxes Stack */}
-          <div className="relative z-20 w-full lg:w-1/2 flex flex-col items-center justify-center px-4 lg:px-8 py-14 mt-[400px] lg:mt-0 gap-8">
+          <div className="relative z-20 w-full lg:w-1/2 flex flex-col items-center justify-center px-4 lg:px-8 py-14 mt-8 lg:mt-0 gap-8">
             {/* Introduction */}
             <section className="w-full max-w-xl z-10 relative overflow-hidden rounded-2xl border border-border/60 bg-background/65 p-6 text-center shadow-xl backdrop-blur-sm transition-all duration-300 hover:border-foreground/20 hover:shadow-2xl lg:p-8 lg:text-left">
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-sky-500/10 via-transparent to-cyan-500/10" />
